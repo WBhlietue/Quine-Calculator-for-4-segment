@@ -1,0 +1,89 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+#main {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
+
+.segment {
+  position: relative;
+  margin: 1px;
+}
+
+.segmentUnit {
+  position: absolute;
+  border-radius: 100px;
+  background-color: black;
+  transition: all 0.3s;
+  cursor: pointer;
+  z-index: 0;
+}
+.segmentUnit:hover {
+  transform: scale(1.05);
+  opacity: 0.7;
+  z-index: 1;
+}
+
+.segmentName {
+  text-align: center;
+}
+
+.btn {
+  cursor: pointer;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  background-color: aqua;
+}
+
+#answer {
+  position: relative;
+  /* background-color: red; */
+}
+#ansMain {
+  margin-bottom: 200px;
+  position: relative;
+}
+
+table {
+  margin: 10px;
+  text-align: center;
+}
+th,
+td {
+  padding: 10px;
+}
+
+#tutorial {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  left: 0%;
+  top: 0%;
+  background-color: #000000aa;
+  display: none;
+}
+.tMain {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  left: 5%;
+  top: 5%;
+  background-color: antiquewhite;
+  /* transform: translateX(50%); */
+}
+.tBtn {
+  width: 3rem;
+  color: red;
+  height: 3rem;
+  font-size: 2rem;
+}
+.tP{
+  margin: 10px;
+}

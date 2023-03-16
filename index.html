@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quine Calculator</title>
+    <link rel="stylesheet" href="main.css" />
+    <link rel="icon" href="moon.png" />
+  </head>
+  <body>
+    <div>
+      <button onclick="document.getElementById('tutorial').style.display = 'inline'">How to use</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <label>Scale</label>
+      <input
+        type="range"
+        min="100"
+        max="300"
+        id="scale"
+        value="125"
+        oninput="ChangeSliderValue()"
+      />
+      <label id="scaleValue">12</label>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <button onclick="ChangeScale()">Change scale</button>
+    </div>
+    <div id="main"></div>
+    <div id="ansMain">
+      <button onclick="Run()" id="btn" class="btn">Start</button>
+      <div id="answer"></div>
+    </div>
+    <div id="tutorial" >
+      <div class="tMain">
+        <button class="tBtn" onclick="document.getElementById('tutorial').style.display = 'none'">X</button>
+        <p class="tP">1. Click segments to active or disactive it</p>
+        <p class="tP">2. Then click Start button to get result</p>
+        <p class="tP">3. Then result will be show under Start button</p>
+        <p class="tP">4. There have answer and details</p>
+        <br />
+        <p class="tP">1. oooo - always active</p>
+        <p class="tP">2. xxxx - always off</p>
+        <p class="tP">3. !X - X's reverse</p>
+        <p class="tP">4. You can use slider to change scale :)</p>
+      </div>
+    </div>
+    <script>
+      const scaleValue = document.getElementById("scaleValue");
+      const slider = document.getElementById("scale");
+
+      ChangeSliderValue();
+
+      function ChangeSliderValue() {
+        scaleValue.innerHTML = (slider.value / 100).toFixed(2);
+      }
+
+      function ChangeScale() {
+        Init(slider.value / 100);
+      }
+
+      Init(1.25);
+      function Init(scale) {
+        if (scale < 1) {
+          scale = 1;
+        }
+        document.getElementById("main").innerHTML = "";
+        var wWidth = window.innerWidth;
+        let width = wWidth / 4 / scale;
+        let longLength = width * 0.8 + "px";
+        let shortLength = width * 0.1 + "px";
+        let n = ["X", "Y", "Z", "W"];
+        for (let i = 0; i < 4; i++) {
+          let name = document.createElement("div");
+          name.classList.add("segmentName");
+          name.style.fontSize = width * 0.2 + "px";
+          name.innerHTML = n[i];
+          let segmentDiv = document.createElement("div");
+          segmentDiv.classList.add("segment");
+          segmentDiv.style.width = width + "px";
+          segmentDiv.style.height = width * 2 + "px";
+          let seg1 = document.createElement("div");
+          seg1.classList.add("segmentUnit");
+          seg1.style.top = width * 0 + width * 0.3 + "px";
+          seg1.style.left = width * 0.1 + "px";
+          seg1.style.width = longLength;
+          seg1.style.height = shortLength;
+
+          let seg2 = document.createElement("div");
+          seg2.classList.add("segmentUnit");
+          seg2.style.top = width * 0.1 + width * 0.3 + "px";
+          seg2.style.left = width * 0.85 + "px";
+          seg2.style.height = longLength;
+          seg2.style.width = shortLength;
+
+          let seg3 = document.createElement("div");
+          seg3.classList.add("segmentUnit");
+          seg3.style.top = width * 1 + width * 0.3 + "px";
+          seg3.style.left = width * 0.85 + "px";
+          seg3.style.height = longLength;
+          seg3.style.width = shortLength;
+
+          let seg4 = document.createElement("div");
+          seg4.classList.add("segmentUnit");
+          seg4.style.top = width * 1.8 + width * 0.3 + "px";
+          seg4.style.left = width * 0.1 + "px";
+          seg4.style.width = longLength;
+          seg4.style.height = shortLength;
+
+          let seg5 = document.createElement("div");
+          seg5.classList.add("segmentUnit");
+          seg5.style.top = width * 1 + width * 0.3 + "px";
+          seg5.style.left = width * 0.05 + "px";
+          seg5.style.height = longLength;
+          seg5.style.width = shortLength;
+
+          let seg6 = document.createElement("div");
+          seg6.classList.add("segmentUnit");
+          seg6.style.top = width * 0.1 + width * 0.3 + "px";
+          seg6.style.left = width * 0.05 + "px";
+          seg6.style.height = longLength;
+          seg6.style.width = shortLength;
+
+          let seg7 = document.createElement("div");
+          seg7.classList.add("segmentUnit");
+          seg7.style.top = width * 0.9 + width * 0.3 + "px";
+          seg7.style.left = width * 0.1 + "px";
+          seg7.style.width = longLength;
+          seg7.style.height = shortLength;
+
+          segmentDiv.appendChild(name);
+
+          seg1.id = i + "a";
+          seg2.id = i + "b";
+          seg3.id = i + "c";
+          seg4.id = i + "d";
+          seg5.id = i + "e";
+          seg6.id = i + "f";
+          seg7.id = i + "g";
+
+          segmentDiv.appendChild(seg1);
+          seg1.style.backgroundColor = "rgb(0, 0, 0)";
+          segmentDiv.appendChild(seg2);
+          seg2.style.backgroundColor = "rgb(0, 0, 0)";
+          segmentDiv.appendChild(seg3);
+          seg3.style.backgroundColor = "rgb(0, 0, 0)";
+          segmentDiv.appendChild(seg4);
+          seg4.style.backgroundColor = "rgb(0, 0, 0)";
+          segmentDiv.appendChild(seg5);
+          seg5.style.backgroundColor = "rgb(0, 0, 0)";
+          segmentDiv.appendChild(seg6);
+          seg6.style.backgroundColor = "rgb(0, 0, 0)";
+          segmentDiv.appendChild(seg7);
+          seg7.style.backgroundColor = "rgb(0, 0, 0)";
+
+          seg1.addEventListener("click", () => {
+            SegmentClick(i, "a");
+          });
+          seg2.addEventListener("click", () => {
+            SegmentClick(i, "b");
+          });
+          seg3.addEventListener("click", () => {
+            SegmentClick(i, "c");
+          });
+          seg4.addEventListener("click", () => {
+            SegmentClick(i, "d");
+          });
+          seg5.addEventListener("click", () => {
+            SegmentClick(i, "e");
+          });
+          seg6.addEventListener("click", () => {
+            SegmentClick(i, "f");
+          });
+          seg7.addEventListener("click", () => {
+            SegmentClick(i, "g");
+          });
+          document.getElementById("ansMain").style.top = width * 0.5 + "px";
+          document.getElementById("btn").style.fontSize = width * 0.2 + "px";
+          document.getElementById("main").appendChild(segmentDiv);
+        }
+
+        function SegmentClick(num, name) {
+          let item = document.getElementById(num + name);
+          if (item.style.backgroundColor == "rgb(0, 0, 0)") {
+            item.style.backgroundColor = "rgb(255, 0, 0)";
+          } else {
+            item.style.backgroundColor = "rgb(0, 0, 0)";
+          }
+        }
+      }
+      function Run() {
+        document.getElementById("answer").innerHTML = "";
+        let letters = ["a", "b", "c", "d", "e", "f", "g"];
+        let ans = [];
+        for (let i = 0; i < 4; i++) {
+          let a = [];
+          for (let j = 0; j < letters.length; j++) {
+            if (
+              document.getElementById(i + letters[j]).style.backgroundColor ==
+              "rgb(255, 0, 0)"
+            ) {
+              a.push(1);
+            } else {
+              a.push(0);
+            }
+          }
+          ans.push(a);
+        }
+        let v = ["1000", "0100", "0010", "0001"];
+        let gg = [];
+        for (let i = 0; i < letters.length; i++) {
+          let a = [];
+
+          for (let j = 0; j < ans.length; j++) {
+            if (ans[j][i] == 1) {
+              a.push(v[j]);
+            }
+          }
+          gg.push(a);
+        }
+        ans = Start(gg);
+        let table = document.createElement("table");
+        let c1 = document.createElement("tr");
+        let r = document.createElement("td");
+        r.innerHTML = "Name";
+        c1.appendChild(r);
+        for (let i = 0; i < letters.length; i++) {
+          r = document.createElement("td");
+          r.innerHTML = letters[i];
+          c1.appendChild(r);
+        }
+        let c2 = document.createElement("tr");
+        r = document.createElement("td");
+        r.innerHTML = "Value";
+        c2.appendChild(r);
+        for (let i = 0; i < ans[7].length; i++) {
+          r = document.createElement("td");
+          let value = "";
+          for (let j = 0; j < ans[7][i][0].length; j++) {
+            value +=
+              Translate(ans[7][i][0][j]) +
+              (j >= ans[7][i][0].length - 1 ? "" : " + ");
+          }
+          if (value == "") {
+            value = ans[7][i][0][0];
+          }
+          r.innerHTML = value;
+          c2.appendChild(r);
+        }
+        table.appendChild(c1);
+        table.appendChild(c2);
+        table.border = 1;
+        document
+          .getElementById("answer")
+          .appendChild(document.createElement("hr"));
+        let t = document.createElement("p");
+        t.innerHTML = "Answer is: ";
+        document.getElementById("answer").appendChild(t);
+        document.getElementById("answer").appendChild(table);
+        document
+          .getElementById("answer")
+          .appendChild(document.createElement("hr"));
+
+        document
+          .getElementById("answer")
+          .appendChild(document.createElement("hr"));
+        t = document.createElement("p");
+        t.innerHTML = "Detail is: ";
+        document.getElementById("answer").appendChild(t);
+
+        table = document.createElement("table");
+        for (let i = 0; i < letters.length; i++) {
+          let datas = ans[i];
+          let col = document.createElement("tr");
+          let row = document.createElement("th");
+          row.colSpan = 5;
+          row.innerHTML = letters[i];
+          col.appendChild(row);
+          table.appendChild(col);
+          col = document.createElement("tr");
+          for (let j = 0; j < datas.length; j++) {
+            let row = document.createElement("td");
+            ans[i][j].map((k) => {
+              k.map((l) => {
+                row.innerHTML += l + "<br/>";
+              });
+              row.innerHTML += " <br/>";
+            });
+            col.appendChild(row);
+          }
+          table.appendChild(col);
+        }
+        table.border = 1;
+        document.getElementById("answer").appendChild(table);
+        document
+          .getElementById("answer")
+          .appendChild(document.createElement("hr"));
+      }
+
+      function Translate(val) {
+        let ans = "";
+        ans += GetL(val[0], "X");
+        ans += GetL(val[1], "Y");
+        ans += GetL(val[2], "Z");
+        ans += GetL(val[3], "W");
+        return ans;
+      }
+      function GetL(char, leter) {
+        if (char == "1") {
+          return leter;
+        } else if (char == "0") {
+          return "!" + leter;
+        } else {
+          return "";
+        }
+      }
+    </script>
+    <script src="main.js"></script>
+  </body>
+</html>
