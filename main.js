@@ -13,7 +13,15 @@ function checkIs(n1, n2) {
   }
   return "NULL";
 }
-
+function CheckIs1(str) {
+  let o = 0;
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] == "1") {
+      o++;
+    }
+  }
+  return o == 1;
+}
 function Start(answers) {
   let listTemp = [];
   let asd = [];
@@ -25,7 +33,6 @@ function Start(answers) {
     ["1111"],
   ];
   let returnList = [];
-  // returnList.push(list);
   let listBack = [...list];
 
   for (let y = 0; y < answers.length; y++) {
@@ -35,37 +42,39 @@ function Start(answers) {
     l[l.length - 1] = [...list];
     if (list[1].length == 0) {
       list = [["xxxx"]];
-    }else if(list[1].length == 4){
+    } else if (list[1].length == 4) {
       list = [["oooo"]];
-    }else
-    {
-    for (let x = 0; x < 4; x++) {
-      for (let a = 1; a < list.length; a++) {
-        for (let i = 0; i < list[a].length; i++) {
-          let isUsed = false;
-          for (let j = 0; j < list[a - 1].length; j++) {
-            let str = checkIs(list[a - 1][j], list[a][i]);
-            if (str != "NULL") {
-              isUsed = true;
-              if (!listTemp.includes(str)) {
-                listTemp.push(str);
+    } else {
+      for (let x = 0; x < 4; x++) {
+        for (let a = 1; a < list.length; a++) {
+          for (let i = 0; i < list[a].length; i++) {
+            let isUsed = false;
+            for (let j = 0; j < list[a - 1].length; j++) {
+              let str = checkIs(list[a - 1][j], list[a][i]);
+              if (str != "NULL") {
+                isUsed = true;
+                if (!listTemp.includes(str)) {
+                  listTemp.push(str);
+                }
+              }
+            }
+            if (!isUsed) {
+              if (!listTemp.includes(list[a][i])) {
+                console.log(list[a][i]);
+                if (CheckIs1(list[a][i])) {
+                  listTemp.push(list[a][i]);
+                }
               }
             }
           }
-          if (!isUsed) {
-            if (!listTemp.includes(list[a][i])) {
-              listTemp.push(list[a][i]);
-            }
-          }
+          list[a - 1] = [...listTemp];
+          listTemp = [];
         }
-        list[a - 1] = [...listTemp];
-        listTemp = [];
-      }
 
-      list.pop();
-      l.push([...list]);
+        list.pop();
+        l.push([...list]);
+      }
     }
-  }
     console.log(list);
 
     asd.push(list);
