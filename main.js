@@ -39,6 +39,7 @@ function Start(answers) {
     let l = [];
     list[1] = answers[y];
     l.push([]);
+    let useless = [];
     l[l.length - 1] = [...list];
     if (list[1].length == 0) {
       list = [["xxxx"]];
@@ -50,6 +51,9 @@ function Start(answers) {
           for (let i = 0; i < list[a].length; i++) {
             let isUsed = false;
             for (let j = 0; j < list[a - 1].length; j++) {
+              if(useless.includes(list[a - 1][j])){
+                continue;
+              }
               let str = checkIs(list[a - 1][j], list[a][i]);
               if (str != "NULL") {
                 isUsed = true;
@@ -63,6 +67,8 @@ function Start(answers) {
                 console.log(list[a][i]);
                 if (CheckIs1(list[a][i])) {
                   listTemp.push(list[a][i]);
+                }else{
+                  useless .push(list[a][i])
                 }
               }
             }
